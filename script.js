@@ -1,3 +1,10 @@
+let playerState = "idle";
+const select = document.getElementById("animations");
+
+select.addEventListener('change', function(e) {
+    playerState = e.target.value;
+});
+
 const canvas = document.getElementById("canvas1");
 const ctx = canvas.getContext("2d");
 
@@ -6,7 +13,6 @@ const CANVAS_HEIGHT = canvas.height = 600;
 
 const playerImage = new Image();
 playerImage.src = "./assets/shadow_dog.png";
-let playerState = "idle";
 /**
  * Sprite sheet width 6876px it has 12 columns of sprites
  * 6876 / 12 = 573
@@ -64,7 +70,7 @@ const animationStates = [
         name: "getHit",
         frames: 4,
     }
-]
+];
 
 animationStates.forEach((state, index) => {
     let frames = {
@@ -85,6 +91,7 @@ function animate() {
     let position = Math.floor(gameFrame/staggerFrame) % spriteAnimations[playerState].loc.length;
     let frameX = position * spriteWidth;
     let frameY = spriteAnimations[playerState].loc[position].y;
+
     ctx.drawImage(
         playerImage,// source of the image (the sprite sheet)
         frameX, // area from the srpite sheet to be cut out on the x axis
